@@ -1,4 +1,4 @@
-nagios Cookbook
+Nagios Cookbook
 ===============
 [![Build Status](https://secure.travis-ci.org/opscode-cookbooks/nagios.png?branch=master)](http://travis-ci.org/opscode-cookbooks/nagios)
 
@@ -43,7 +43,7 @@ The following attributes are used by both client and server recipes.
 * `node['nagios']['multi_environment_monitoring']` - Chef server will monitor hosts in all environments, not just its own, default 'false'
 * `node['nagios']['hosts_template']` - Host template you want to inherit
   properties/variables from, default 'server'. For more informations,
-  see the nagios doc on [Object Inheritance](http://nagios.sourceforge.net/docs/3_0/objectinheritance.html).
+  see the Nagios doc on [Object Inheritance](http://nagios.sourceforge.net/docs/3_0/objectinheritance.html).
 
 ### client
 The following attributes are used for the NRPE client
@@ -152,12 +152,12 @@ RHEL and Fedora default to installation via source, but you can install NRPE via
 Installs the NRPE client and plugins from packages. Default for Debian / Ubuntu systems.
 
 ### client\_source
-Installs the NRPE client and plugins from source. Default for Redhat and Fedora based systems, as native packages for NRPE are not available in the default repositories.
+Installs the NRPE client and plugins from source. Defaults for Redhat and Fedora based systems, as native packages for NRPE, are not available in the default repositories.
 
 ### server
 Includes the correct client installation recipe based on platform, either `nagios::server_package` or `nagios::server_source`.
 
-The server recipe sets up Apache as the web front end by default. The nagios::client recipe is also included. This recipe also does a number of searches to dynamically build the hostgroups to monitor, hosts that belong to them and admins to notify of events/alerts.
+The server recipe sets up Apache as the web front end by default. The `nagios::client` recipe is also included. This recipe also does a number of searches to dynamically build the hostgroups to monitor, hosts that belong to them, and admins to notify of events/alerts.
 
 Searches are confined to the node's `chef_environment` unless multi-environment monitoring is enabled.
 
@@ -179,12 +179,12 @@ The recipe does the following:
 Installs the Nagios server from packages. Default for Debian / Ubuntu systems.
 
 ### server\_source
-Installs the Nagios server from source. Default for Red Hat / Fedora based systems as native packages for Nagios are not available in the default repositories.
+Installs the Nagios server from source. Defaults for Red Hat / Fedora based systems, as native packages for Nagios, are not available in the default repositories.
 
 ### pagerduty
 Installs and configures pagerduty plugin for Nagios. You need to set a `node['nagios']['pagerduty']['key']` attribute on your server for this to work. This can be set through environments so that you can use different API keys for servers in production vs staging for instance.
 
-This recipe was written based on the [Nagios Integration Guide](http://www.pagerduty.com/docs/guides/nagios-integration-guide) from PagerDuty which explains how to get an API key for your Nagios server.
+This recipe was written based on the [Nagios Integration Guide](http://www.pagerduty.com/docs/guides/nagios-integration-guide) from PagerDuty, which explains how to get an API key for your Nagios server.
 
 
 Data Bags
@@ -396,7 +396,7 @@ You can optionally define service escalations for the data bag defined services.
 }
 ```
 
-Then, in the service data bag,
+Then, in the service data bag:
 
 ```javascript
 {
@@ -467,7 +467,7 @@ The library included with the cookbook provides some helper methods used in temp
 
 * `nagios_boolean`
 * `nagios_interval` - calculates interval based on interval length and a given number of seconds.
-* `nagios_attr` - retrieves a nagios attribute from the node.
+* `nagios_attr` - retrieves a Nagios attribute from the node.
 
 
 Resources/Providers
@@ -478,8 +478,8 @@ The nrpecheck LWRP provides an easy way to add and remove NRPE checks from withi
 
 #### Actions
 
-- `:add` creates a NRPE configuration file and restart the NRPE process. Default action.
-- `:remove` removes the configuration file and restart the NRPE process
+- `:add` creates a NRPE configuration file and restarts the NRPE process. Default action.
+- `:remove` removes the configuration file and restarts the NRPE process.
 
 #### Attribute Parameters
 
@@ -512,13 +512,13 @@ end
 Usage
 -----
 ### server setup
-Create a role named '`monitoring`', and add the nagios server recipe to the `run_list`. See __Monitoring Role__ above for an example.
+Create a role named '`monitoring`', and add the Nagios server recipe to the `run_list`. See __Monitoring Role__ above for an example.
 
 Apply the Nagios client recipe to nodes in order to install the NRPE client
 
 By default the Nagios server will only monitor systems in its same environment. To change this set the `multi_environment_monitoring` attribute. See __Attributes__
 
-Create data bag items in the `users` data bag for each administer you would like to be able to login to the Nagios server UI. Pay special attention to the method you would like to use to authorization users (openid or htauth). See __Users__ and __Atttributes__
+Create data bag items in the `users` data bag for each administrator you would like to be able to login to the Nagios server UI. Pay special attention to the method you would like to use to authorize users (openid or htauth). See __Users__ and __Atttributes__
 
 At this point you now have a minimally functional Nagios server, however the server will lack any service checks outside of the single Nagios Server health check.
 
@@ -530,7 +530,7 @@ With NRPE commands created using the LWRP you will need to define Nagios service
 ### enabling notifications
 You need to set `default['nagios']['notifications_enabled'] = 1` attribute on your Nagios server to enable email notifications.
 
-For email notifications to work an appropriate mail program package and local MTA need to be installed so that /usr/bin/mail or /bin/mail is available on the system.
+For email notifications to work, an appropriate mail program package and local MTA need to be installed so that /usr/bin/mail or /bin/mail is available on the system.
 
 Example:
 
